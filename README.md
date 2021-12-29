@@ -10,3 +10,5 @@
 - The menu has cooked food and drinks. Multiple menus can have multimple cooked food and drinks, so we have a relationship of many to many between food and menu and menu with drinks.
 - The food contains generic informations like name, price and ingredient.
 - The drinks contains a name, a price and a quantity. If the quantity drops under n * 10, where n is the number of restaurants, we will notify the restaurnats.
+
+# What the app can do?
