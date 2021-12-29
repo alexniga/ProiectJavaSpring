@@ -1,5 +1,5 @@
 # Proiect Java Spring : "Cool Company"
-![This is an image](https://github.com/alexniga/ProiectJavaSpring/blob/main/CoolCompanyJavaProject.png)
+![This is an image](https://github.com/alexniga/ProiectJavaSpring/blob/main/CoolCompanyJavaProject2.png)
 
 # Description
 
