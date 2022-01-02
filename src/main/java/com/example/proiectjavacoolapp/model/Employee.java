@@ -1,6 +1,7 @@
 package com.example.proiectjavacoolapp.model;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @Table(name = "employee")
@@ -15,6 +16,10 @@ public class Employee {
     @OneToOne
     @JoinColumn(name = "contact_data_contact_data_id")
     private ContactData contactData;
+
+    @ManyToOne
+    @JoinColumn(name = "restaurant_id")
+    private Restaurant restaurant;
 
     public Employee(){
     }
@@ -65,4 +70,13 @@ public class Employee {
     public void setContactData(ContactData contactData) {
         this.contactData = contactData;
     }
+
+    public Restaurant getRestaurant() {
+        return restaurant;
+    }
+
+    public void setRestaurant(Restaurant restaurant) {
+        this.restaurant = restaurant;
+    }
+
 }
