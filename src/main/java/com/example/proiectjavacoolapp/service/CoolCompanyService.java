@@ -1,10 +1,13 @@
 package com.example.proiectjavacoolapp.service;
 
+import com.example.proiectjavacoolapp.exceptions.NoCompanyFindException;
 import com.example.proiectjavacoolapp.model.*;
 import com.example.proiectjavacoolapp.repository.*;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Objects;
+import java.util.stream.Collectors;
 
 @Service
 public class CoolCompanyService {
@@ -83,4 +86,38 @@ public class CoolCompanyService {
 
         return employeeRepository.save(employee);
     }
+
+    public List<Restaurant> retriveCompanyNameRestaurants(String companyName) {
+        CoolCompany company = coolCompanyRepository.findAll()
+                .stream()
+                .filter(p -> Objects.equals(p.getName(), companyName))
+                .findFirst()
+                .orElseThrow(() -> new NoCompanyFindException("Nu avem compania cu numele respectiv!"));
+
+        int companyId = company.getCompanyId();
+
+        return restaurantRepository.findAll().stream().filter(p -> p.getCompany().getCompanyId() == companyId).collect(Collectors.toList());
+    }
+
+    public List<Employee> retriveCompanyAllEmployeesSalaryUnder(String companyName, int salaryBound) {
+        int companyId = coolCompanyRepository.findAll()
+                .stream()
+                .filter(p -> Objects.equals(p.getName(), companyName))
+                .findFirst()
+                .map(x -> x.getCompanyId())
+                .orElseThrow(() -> new NoCompanyFindException("Nu avem compania cu numele respectiv!"));
+
+        List<Integer> restaurantIds = restaurantRepository.findAll()
+                .stream()
+                .filter(p -> p.getCompany().
+                        getCompanyId() == companyId).map(Restaurant::getRestaurantId)
+                .collect(Collectors.toList());
+
+        return employeeRepository.findAll()
+                .stream()
+                .filter(e -> e.getSalary() < salaryBound && restaurantIds.contains(e.getRestaurant().getRestaurantId()))
+                .collect(Collectors.toList());
+
+    }
+
 }

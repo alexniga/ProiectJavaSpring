@@ -17,3 +17,6 @@
   restaurants, we will notify the restaurnats.
 
 # What the app can do?
+- Adds any of the entities in the database
+- Retrives the restaurants of a company by the company name
+- Retrives all employees of the company with a salary lower then a salary bound, by the company name 

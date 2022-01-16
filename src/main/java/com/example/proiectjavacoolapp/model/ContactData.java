@@ -1,6 +1,9 @@
 package com.example.proiectjavacoolapp.model;
 
+import com.sun.istack.NotNull;
+
 import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
 
 @Entity
 @Table(name = "contact_data")
@@ -8,8 +11,10 @@ public class ContactData {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int contactDataId;
+    @NotBlank(message = "Ne trebuie un numar de telefon!")
     private String phoneNumber;
     private String adress;
+    @Column(unique = true)
     private String website;
 
     public ContactData(){

@@ -5,6 +5,7 @@ import com.example.proiectjavacoolapp.service.CoolCompanyService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 
 @RestController
@@ -18,7 +19,7 @@ public class CoolCompanyController {
     }
 
     @PostMapping("/contactdata/new")
-    public ResponseEntity<ContactData> saveNewContactData(@RequestBody ContactData contactData){
+    public ResponseEntity<ContactData> saveNewContactData(@Valid @RequestBody ContactData contactData){
             return ResponseEntity.ok()
                     .body(coolCompanyService.saveNewContactData(contactData));
     }
@@ -53,5 +54,17 @@ public class CoolCompanyController {
     public ResponseEntity<Restaurant> saveNewRestaurant(@RequestBody Restaurant restaurant, @RequestParam int companyId, @RequestParam int contactDataId, @RequestParam int menuId){
         return ResponseEntity.ok()
                 .body(coolCompanyService.saveNewRestaurant(restaurant, companyId, contactDataId, menuId));
+    }
+
+    @GetMapping("/name/restaurants")
+    public ResponseEntity<List<Restaurant>> retriveCompanyNameRestaurants(@RequestParam String companyName) {
+        return ResponseEntity.ok()
+                .body(coolCompanyService.retriveCompanyNameRestaurants(companyName));
+    }
+
+    @GetMapping("/name/employees/salalry/under")
+    public ResponseEntity<List<Employee>> retriveCompanyAllEmployeesSalaryUnder(@RequestParam String companyName, @RequestParam int salary) {
+        return ResponseEntity.ok()
+                .body(coolCompanyService.retriveCompanyAllEmployeesSalaryUnder(companyName, salary));
     }
 }
