@@ -28,6 +28,7 @@ public class Restaurant {
 
     @ManyToOne
     @JoinColumn(name = "company_id")
+    @JsonIgnore
     private CoolCompany company;
 
     public Restaurant(){}
