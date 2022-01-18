@@ -1,6 +1,8 @@
 package com.example.proiectjavacoolapp.model;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import java.util.List;
 
 @Entity
@@ -9,8 +11,11 @@ public class Employee {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int employeeId;
+    @NotBlank(message = "We need the name!")
     private String name;
+    @NotBlank(message = "He has to have a position!")
     private String position;
+    @NotNull(message = "HE NEED A SALARY")
     private int salary;
 
     @OneToOne

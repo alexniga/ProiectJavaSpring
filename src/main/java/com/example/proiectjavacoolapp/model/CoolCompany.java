@@ -1,6 +1,7 @@
 package com.example.proiectjavacoolapp.model;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -10,8 +11,9 @@ public class CoolCompany {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int companyId;
-
+    @NotBlank(message = "The company needs a name!")
     private String name;
+    @NotBlank(message = "The compani needs  C.U.I.")
     private String cui;
 
     @OneToOne

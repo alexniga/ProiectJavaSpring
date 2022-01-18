@@ -13,6 +13,7 @@ public class ContactData {
     private int contactDataId;
     @NotBlank(message = "Ne trebuie un numar de telefon!")
     private String phoneNumber;
+    @NotBlank(message = "Ne trebuie o adresa")
     private String adress;
     @Column(unique = true)
     private String website;

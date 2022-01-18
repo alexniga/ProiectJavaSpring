@@ -3,6 +3,9 @@ package com.example.proiectjavacoolapp.model;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -12,8 +15,12 @@ public class Drink {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int drinkId;
+    @NotBlank(message = "We need a name")
     private String name;
+    @NotNull(message = "We need to ahve a price")
     private int price;
+    @NotNull(message = "WE NEED QUANTITY!")
+    @Min(value = 50)
     private int quantity;
 
 

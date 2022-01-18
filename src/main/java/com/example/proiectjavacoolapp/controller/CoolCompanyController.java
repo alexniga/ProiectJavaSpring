@@ -25,33 +25,33 @@ public class CoolCompanyController {
     }
 
     @PostMapping("/cookedfood/new")
-    public ResponseEntity<CookedFood> saveNewCookedFood(@RequestBody CookedFood cookedFood){
+    public ResponseEntity<CookedFood> saveNewCookedFood(@Valid @RequestBody CookedFood cookedFood){
         return ResponseEntity.ok().body(coolCompanyService.saveNewCookedFood(cookedFood));
     }
 
     @PostMapping("/drink/new")
-    public ResponseEntity<Drink> saveNewDrink(@RequestBody Drink drink){
+    public ResponseEntity<Drink> saveNewDrink(@Valid @RequestBody Drink drink){
         return ResponseEntity.ok().body(coolCompanyService.saveNewDrink(drink));
     }
 
     @PostMapping("/coolcompany/new")
-    public ResponseEntity<CoolCompany> saveNewCoolCompany(@RequestBody CoolCompany coolCompany, @RequestParam int contactDataId){
+    public ResponseEntity<CoolCompany> saveNewCoolCompany(@Valid @RequestBody CoolCompany coolCompany, @RequestParam int contactDataId){
         return ResponseEntity.ok()
                 .body(coolCompanyService.saveNewCoolCompany(coolCompany, contactDataId));
     }
 
     @PostMapping("/menu/new")
-    public ResponseEntity<Menu> saveNewMenu(@RequestBody Menu menu, @RequestParam List<Integer> drinkIds, @RequestParam List<Integer> cookedFoodIds){
+    public ResponseEntity<Menu> saveNewMenu(@Valid @RequestBody Menu menu, @RequestParam List<Integer> drinkIds, @RequestParam List<Integer> cookedFoodIds){
         return ResponseEntity.ok().body(coolCompanyService.saveNewMenu(menu, drinkIds, cookedFoodIds));
     }
 
     @PostMapping("/employee/new")
-    public ResponseEntity<Employee> saveNewEmployee(@RequestBody Employee employee, @RequestParam int contactDataId, @RequestParam int restaurantId){
+    public ResponseEntity<Employee> saveNewEmployee(@Valid @RequestBody Employee employee, @RequestParam int contactDataId, @RequestParam int restaurantId){
         return ResponseEntity.ok().body(coolCompanyService.saveNewEmployee(employee, contactDataId, restaurantId));
     }
 
     @PostMapping("/restaurant/new")
-    public ResponseEntity<Restaurant> saveNewRestaurant(@RequestBody Restaurant restaurant, @RequestParam int companyId, @RequestParam int contactDataId, @RequestParam int menuId){
+    public ResponseEntity<Restaurant> saveNewRestaurant(@Valid @RequestBody Restaurant restaurant, @RequestParam int companyId, @RequestParam int contactDataId, @RequestParam int menuId){
         return ResponseEntity.ok()
                 .body(coolCompanyService.saveNewRestaurant(restaurant, companyId, contactDataId, menuId));
     }
@@ -66,5 +66,17 @@ public class CoolCompanyController {
     public ResponseEntity<List<Employee>> retriveCompanyAllEmployeesSalaryUnder(@RequestParam String companyName, @RequestParam int salary) {
         return ResponseEntity.ok()
                 .body(coolCompanyService.retriveCompanyAllEmployeesSalaryUnder(companyName, salary));
+    }
+
+    @PostMapping("/drinks/sold/{drinkId}")
+    public ResponseEntity<String> buyDrink(@PathVariable int drinkId){
+        Drink drink = coolCompanyService.buyDrink(drinkId);
+        return ResponseEntity.ok().body("Ai cumparat " + 1 + " produs si mai ai in stoc " + drink.getQuantity());
+    }
+
+    @PostMapping("/drink/newStock")
+    public ResponseEntity<Drink> updateQuantity(@RequestParam int drinkId, @RequestParam int quantity){
+        Drink drink = coolCompanyService.updateQuantity(drinkId, quantity);
+        return ResponseEntity.ok().body(drink);
     }
 }

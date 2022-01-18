@@ -3,6 +3,7 @@ package com.example.proiectjavacoolapp.model;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -12,6 +13,7 @@ public class Restaurant {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int restaurantId;
+    @NotBlank(message = "We need a name! ")
     private String name;
 
     @OneToOne

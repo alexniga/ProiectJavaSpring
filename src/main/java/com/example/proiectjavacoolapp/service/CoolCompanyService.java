@@ -1,6 +1,7 @@
 package com.example.proiectjavacoolapp.service;
 
 import com.example.proiectjavacoolapp.exceptions.NoCompanyFindException;
+import com.example.proiectjavacoolapp.exceptions.QuantityLowerThen50Exception;
 import com.example.proiectjavacoolapp.model.*;
 import com.example.proiectjavacoolapp.repository.*;
 import org.springframework.stereotype.Service;
@@ -112,7 +113,6 @@ public class CoolCompanyService {
                 .filter(p -> p.getCompany().
                         getCompanyId() == companyId).map(Restaurant::getRestaurantId)
                 .collect(Collectors.toList());
-
         return employeeRepository.findAll()
                 .stream()
                 .filter(e -> e.getSalary() < salaryBound && restaurantIds.contains(e.getRestaurant().getRestaurantId()))
@@ -120,4 +120,24 @@ public class CoolCompanyService {
 
     }
 
+    public Drink buyDrink(int drinkId){
+        Drink drink = drinkRepository.findById(drinkId).map(this::buyOne).orElseThrow(() -> new RuntimeException("There is no drink with this id!"));
+        if (drink.getQuantity() < 50) {
+            throw new QuantityLowerThen50Exception("We can't sell you right now because we to few sodas! :(");
+        }
+        drinkRepository.save(drink);
+        return drink;
+    }
+
+    public Drink buyOne(Drink drink) {
+        drink.setQuantity(drink.getQuantity() - 1);
+        return drink;
+    }
+
+    public Drink updateQuantity(int drinkId, int quantity) {
+        Drink drink = drinkRepository.findById(drinkId).orElseThrow(() -> new RuntimeException("There is no drink with this id!"));
+        drink.setQuantity(drink.getQuantity() + quantity);
+        drinkRepository.save(drink);
+        return drink;
+    }
 }

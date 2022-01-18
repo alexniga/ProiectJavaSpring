@@ -17,6 +17,10 @@
   restaurants, we will notify the restaurnats.
 
 # What the app can do?
+- Validates the data you want to insert
 - Adds any of the entities in the database
 - Retrives the restaurants of a company by the company name
 - Retrives all employees of the company with a salary lower then a salary bound, by the company name 
+- Retrive a drink and checks if we still have the minimum quantity
+- Updates the quantity of drinks
+- Throws special messages for exceptions to the simple client who needs the app

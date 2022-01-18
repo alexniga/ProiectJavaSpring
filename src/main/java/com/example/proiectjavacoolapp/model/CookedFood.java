@@ -3,6 +3,8 @@ package com.example.proiectjavacoolapp.model;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -12,8 +14,11 @@ public class CookedFood {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int cookedFoodId;
+    @NotBlank(message = "We need a name")
     private String name;
+    @NotNull(message = "Price has to be not null")
     private int price;
+    @NotBlank(message = "WE NEED INGREDIENTS")
     private String ingredients;
 
     @ManyToMany(mappedBy = "cookedFoodList")
